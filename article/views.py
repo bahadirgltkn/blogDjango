@@ -37,12 +37,12 @@ def addArticle(request):
         article.save()
         
         articles = Article.objects.filter(author = request.user)
-        # makale eklendikten sonra dashboard ekranına guncellenmis sekilde geri donebilmek icin boyle bir yapı kurduk
+        # update dashboard
         context = {
         "articles" : articles
         }
 
-        messages.success(request,"Article created successfully")
+        messages.success(request,"Article created successfully !")
         return render(request,"dashboard.html",context)
     
     return render(request,"addArticle.html", {"form" : form})
@@ -55,4 +55,39 @@ def detail(request,id):
     article = get_object_or_404(Article, id = id)
     
     return render(request,"detail.html",{"article" : article})
+
+def updateArticle(request,id):
+    
+    article = get_object_or_404(Article, id = id)
+    form = ArticleForm(request.POST or None, request.FILES or None, instance= article)
+    # instance --> loading old data
+    
+    if form.is_valid():
+        article = form.save(commit=False)
+        article.author = request.user
+        article.save()
+        
+        articles = Article.objects.filter(author = request.user)
+        context = {
+        "articles" : articles
+        }
+
+        messages.success(request,"Article updated successfully !")
+        return render(request,"dashboard.html",context)
+    
+    return render(request,"update.html", {"form" : form})
+
+def deleteArticle(request, id):
+    article = get_object_or_404(Article, id= id)
+    article.delete()
+    messages.success(request,"Article deleted successfully !")
+    
+    articles = Article.objects.filter(author = request.user)
+    context = {
+        "articles" : articles
+    }
+    
+    return render(request,"dashboard.html", context)
+    
+    
     
