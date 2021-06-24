@@ -18,11 +18,17 @@
                 
             </header>
             <!-- Preview image figure-->
-            <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+            {% if article.articleImage %}
+                <img class="img-fluid rounded" src="{{article.articleImage.url}}" alt="" />
+            {% else %}
+                <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+            {% endif %}
             <hr>
             <!-- Post content-->
             <section class="mb-5">
-                <p>Deneme İçerik</p>
+                <p>
+                    {{article.content|safe}}
+                </p>
             </section>
         </article>
     </div>

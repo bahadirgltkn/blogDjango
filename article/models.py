@@ -13,6 +13,8 @@ class Article(models.Model):
     
     createdDate = models.DateTimeField(auto_now=True)
     #tarih otomatik olarak eklenecek
+    articleImage = models.FileField(blank=True, null=True ,verbose_name= " Add photo to article ")
+    
     def __str__(self):
         return self.title
     

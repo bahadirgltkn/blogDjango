@@ -5,4 +5,4 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         # form ile article modeli baglantılı hale getirilmis oldu
-        fields = ["title","content"]
+        fields = ["title","content","articleImage"]
