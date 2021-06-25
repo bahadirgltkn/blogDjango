@@ -1,9 +1,15 @@
 from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
 from .models import Article
 from django.contrib import messages
 
 # Create your views here.
+
+def articles(request):
+    articles = Article.objects.all()
+    
+    return render(request, "articles.html",{"articles" : articles} )
 
 def index(request):
     # request her view isleminde olmak zorunda get ve post islemleri icin request kullanılacak
@@ -14,6 +20,7 @@ def index(request):
 def about(request):
     return render(request,"about.html")
 
+@login_required(login_url= "user:login")
 def dashboard(request):
     articles = Article.objects.filter(author = request.user)
     
@@ -25,7 +32,7 @@ def dashboard(request):
     
     return render(request,"dashboard.html",context)
 
-
+@login_required(login_url= "user:login")
 def addArticle(request):
     form = ArticleForm(request.POST or None, request.FILES or None)
     
@@ -56,6 +63,7 @@ def detail(request,id):
     
     return render(request,"detail.html",{"article" : article})
 
+@login_required(login_url= "user:login")
 def updateArticle(request,id):
     
     article = get_object_or_404(Article, id = id)
@@ -77,6 +85,7 @@ def updateArticle(request,id):
     
     return render(request,"update.html", {"form" : form})
 
+@login_required(login_url= "user:login")
 def deleteArticle(request, id):
     article = get_object_or_404(Article, id= id)
     article.delete()
@@ -88,6 +97,3 @@ def deleteArticle(request, id):
     }
     
     return render(request,"dashboard.html", context)
-    
-    
-    
