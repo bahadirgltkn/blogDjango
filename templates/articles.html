@@ -5,11 +5,18 @@
             
             <div class="row">
                 <div class="col-lg-12">
+
+                    <form style="float: right;">    
+                        {% csrf_token %}
+                        <input type="text" name="keyword" id="search" placeholder="search...">
+                        <button type="submit" class="btn btn-primary btn-md">Search</button>
+                    </form>
+
                     <h1>ARTICLES</h1>
                     <hr>
-                    <br>
                 </div>
             </div>
+          
               {% if articles %}
 
                     {% for article in articles %}
@@ -40,8 +47,12 @@
                                 <!-- Post content-->
                                 <section class="mb-5">
                                     <p>
-                                        {{article.content|safe}}
+                                        {{article.content|safe|truncatewords:25}}
                                     </p>
+                                    <a href="/articles/article/{{article.id}}" class="btn btn-danger" style="float: right;">
+                                        Read more
+                                    </a>
+                                    <hr>
                                 </section>
                             </article>
                         </div>
