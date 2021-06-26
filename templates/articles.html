@@ -2,38 +2,58 @@
 
 {% block body %}
 
-    
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>ARTICLES</h1>
+                    <hr>
+                    <br>
+                </div>
+            </div>
               {% if articles %}
 
                     {% for article in articles %}
-                    <div class="jumbotron ">
-                        <div class="row">
-                            <div class="col-lg">
-
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Post content-->
+                            <article>
+                                <!-- Post header-->
                                 <header class="mb-4">
                                     <!-- Post title-->
-                                    <h2 class="fw-bolder mb-1">{{article.title}}</h2>
+                                    <a href="/articles/article/{{article.id}}" style="text-decoration: none">
+                                        <h2 class="fw-bolder mb-1">{{article.title}}</h2>
+                                    </a> 
                                     <!-- Post meta content-->
-                                    <p class="text-muted fst-italic mb-2"><b>Written by {{article.author}}</b></p>
+                                    <p class="text-muted fst-italic mb-2"> <b>Written by {{article.author}}</b></p>
                                     <hr>
-                                    <p class="text-muted fst-italic mb-2">Posted on {{article.createdDate}} </p>
+                                    <p class="text-muted fst-italic mb-2"> <b style="color: rgb(238, 180, 180);">Posted on {{article.createdDate}}</b></p>
                                     <hr>
+                                    
                                 </header>
-
+                                <!-- Preview image figure-->
                                 {% if article.articleImage %}
-                                <img class="img-fluid rounded" src="{{article.articleImage.url}}" alt="" />
+                                    <img class="img-fluid rounded" src="{{article.articleImage.url}}" alt="" />
                                 {% else %}
-                                <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+                                    <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
                                 {% endif %}
                                 <hr>
-                                  
-                            </div>
-                        </div>  
-                    </div>
+                                <!-- Post content-->
+                                <section class="mb-5">
+                                    <p>
+                                        {{article.content|safe}}
+                                    </p>
+                                </section>
+                            </article>
+                        </div>
+                        <!-- Side widgets-->
+                       
+                    </div>    
                     {% endfor %}
 
               {% else %}
-
+              <div class="alert alert-danger">
+                There are no posts in this blog...
+              </div>
               {% endif %}
 
         
