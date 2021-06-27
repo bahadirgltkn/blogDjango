@@ -102,3 +102,6 @@ def deleteArticle(request, id):
     }
     
     return render(request,"dashboard.html", context)
+
+def addComment(request, id):
+    pass

@@ -3,13 +3,13 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="/">BG BLOG</a>
+    <a class="navbar-brand" href="{%url 'index'%}">BG BLOG</a>
   
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-          <a class="nav-link" href="/about">Hakkımızda <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{%url 'about' %}">Hakkımızda <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="/articles">Makaleler</a>
@@ -19,18 +19,18 @@
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       {% if  request.user.is_authenticated %}
       <li class="nav-item active">
-          <a href="/articles/dashboard" class="nav-link"> Dashboard </a>
+          <a href="{%url 'article:dashboard' %}" class="nav-link"> Dashboard </a>
       </li>
       <li class="nav-item active">
-          <a href="/user/logout" class="nav-link"> Çıkış Yap </a>
+          <a href="{%url 'user:logout' %}" class="nav-link"> Çıkış Yap </a>
       </li>
 
       {% else %}
       <li class="nav-item active">
-          <a href="/user/login" class="nav-link"> Giriş Yap </a>
+          <a href="{%url 'user:login' %}" class="nav-link"> Giriş Yap </a>
       </li>
       <li class="nav-item active">
-          <a href="/user/register" class="nav-link"> Kayıt Ol </a>
+          <a href="{%url 'user:register' %}" class="nav-link"> Kayıt Ol </a>
       </li>
 
       {% endif %}

@@ -8,7 +8,7 @@
         Hoş geldiniz, <small>{{request.user.username}}</small>
     </p>
     <hr>
-    <a href="/articles/addarticle" class="btn btn-danger">Add Article</a>
+    <a href="{%url 'article:addarticle' %}" class="btn btn-danger">Add Article</a>
     <hr>
 
       {% if articles %}
@@ -28,11 +28,11 @@
           {% for article in articles %}
             <tr>
               <th scope="row">{{article.id}}</th>
-                <td> <a href="/articles/article/{{article.id}}">{{article.title}}</a></td>
+                <td> <a href="{%url 'article:detail' article.id%}">{{article.title}}</a></td>
                 <td>{{article.author.username}}</td>
                 <td>{{article.createdDate}}</td>
-                <td><a href="/articles/update/{{article.id}}" class="btn btn-danger">Update</a></td>
-                <td><a href="/articles/delete/{{article.id}}" class="btn btn-danger">Delete</a></td>
+                <td><a href="{%url 'article:update' article.id%}" class="btn btn-danger">Update</a></td>
+                <td><a href="{%url 'article:delete' article.id%}" class="btn btn-danger">Delete</a></td>
             </tr>
           {% endfor %}
 
