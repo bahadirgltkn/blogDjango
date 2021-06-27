@@ -9,10 +9,10 @@
 
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-          <a class="nav-link" href="{%url 'about' %}">Hakkımızda <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{%url 'about' %}">About <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/articles">Makaleler</a>
+          <a class="nav-link" href="/articles">Articles</a>
         </li>
       </ul>
 
@@ -22,15 +22,15 @@
           <a href="{%url 'article:dashboard' %}" class="nav-link"> Dashboard </a>
       </li>
       <li class="nav-item active">
-          <a href="{%url 'user:logout' %}" class="nav-link"> Çıkış Yap </a>
+          <a href="{%url 'user:logout' %}" class="nav-link"> Logout </a>
       </li>
 
       {% else %}
       <li class="nav-item active">
-          <a href="{%url 'user:login' %}" class="nav-link"> Giriş Yap </a>
+          <a href="{%url 'user:login' %}" class="nav-link"> Login </a>
       </li>
       <li class="nav-item active">
-          <a href="{%url 'user:register' %}" class="nav-link"> Kayıt Ol </a>
+          <a href="{%url 'user:register' %}" class="nav-link"> Register </a>
       </li>
 
       {% endif %}

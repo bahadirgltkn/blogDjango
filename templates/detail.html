@@ -31,6 +31,26 @@
                 </p>
             </section>
         </article>
+        <br><br>
+        <hr>
+        <h2 style="color:#0069D9; ">Comments</h2>
+        <hr>
+        {% if comments %}
+        {% for comment in comments %}
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" style="height: 50px; width: 50px;" >
+                <div class="media-body">
+                    <h5 class="mt-0">{{comment.comment_author}}</h5>
+                    <b> {{comment.comment_date}} </b><br>
+                    {{comment.comment_content}}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+        
+        {% else %}
+        <div class="alert alert-danger"> Bu makaleye herhangi bir yorum yazılmamıştır.</div>
+        {% endif %}
 
         <div class="card my-4">
             <h5 class="card-header"> Leave a Comment: </h5>
@@ -39,11 +59,11 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="formGroupExampleInput">Name</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your name">
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your name" name="comment_author">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Comment</label>
-                        <textarea class="form-control" id="" rows="3"></textarea>
+                        <textarea class="form-control" id="" rows="3" name="comment_content"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -54,3 +74,4 @@
 </div>
 
 {% endblock body %}
+

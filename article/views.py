@@ -1,7 +1,7 @@
-from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
+from django.shortcuts import render,HttpResponse,redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
-from .models import Article
+from .models import Article, Comment
 from django.contrib import messages
 
 # Create your views here.
@@ -65,8 +65,9 @@ def detail(request,id):
     # first() bize liste yerine obje donecektir
     
     article = get_object_or_404(Article, id = id)
+    comments = article.comments.all()
     
-    return render(request,"detail.html",{"article" : article})
+    return render(request,"detail.html",{"article" : article, "comments": comments})
 
 @login_required(login_url= "user:login")
 def updateArticle(request,id):
@@ -104,4 +105,15 @@ def deleteArticle(request, id):
     return render(request,"dashboard.html", context)
 
 def addComment(request, id):
-    pass
+    article = get_object_or_404(Article,id = id)
+    if request.method == "POST":
+        comment_author = request.POST.get("comment_author")
+        comment_content = request.POST.get("comment_content")
+        
+        newComment = Comment(comment_author = comment_author, comment_content = comment_content)
+        newComment.article = article
+        newComment.save()
+    
+    # return redirect("/articles/article/" + str(id))
+    return redirect(reverse("article:detail",kwargs={"id":id}))
+        
