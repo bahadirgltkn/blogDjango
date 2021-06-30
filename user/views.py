@@ -14,16 +14,23 @@ def register(request):
     if form.is_valid():
         # is_valid ile birlikte forms icerisinde yazılan clean() metodu calistirilir ve parola kontrolu gerceklesmesi saglanır
         username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
+        checkUsername =  User.objects.filter(username = username)
+        if checkUsername:
+            messages.warning(request,"Username already exist !")
+            return render(request,"register.html",{"form" : form})
+        else:
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password")
         
-        newUser = User(username = username)
-        newUser.set_password(password)
-        newUser.save()
-        login(request,newUser)
-        # login ile kayıt olan kullanıcıyı giris yaptıracak
-        messages.success(request,"You have successfully registered...")
+            newUser = User(username = username)
+            newUser.email = email
+            newUser.set_password(password)
+            newUser.save()
+            login(request,newUser)
+            # login ile kayıt olan kullanıcıyı giris yaptıracak
+            messages.success(request,"You have successfully registered...")
         
-        return redirect("index") # ve sonrasında index sayfasına redirect olacak
+            return redirect("index") # ve sonrasında index sayfasına redirect olacak
     
     context = {
         "form" : form

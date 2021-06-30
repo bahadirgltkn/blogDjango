@@ -2,12 +2,14 @@ from django import forms
 
 class RegisterForm(forms.Form):
     
-    username = forms.CharField(max_length=50, label = "Username")
+    username = forms.CharField(max_length=50, label = "Username", required=True)
+    email = forms.EmailField(max_length = 50, label = "Email", required=True)
     password = forms.CharField(max_length=20, label = "Password", widget = forms.PasswordInput)
     confirm = forms.CharField(max_length=20, label = "Confirm Password", widget = forms.PasswordInput)
     
     def clean(self):
         username = self.cleaned_data.get("username")
+        email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
         confirm = self.cleaned_data.get("confirm")
         
@@ -17,6 +19,7 @@ class RegisterForm(forms.Form):
         
         values = {
             "username" : username,
+            "email" : email,
             "password" : password,
         }
         
