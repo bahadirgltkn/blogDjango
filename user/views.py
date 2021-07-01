@@ -14,9 +14,14 @@ def register(request):
     if form.is_valid():
         # is_valid ile birlikte forms icerisinde yazılan clean() metodu calistirilir ve parola kontrolu gerceklesmesi saglanır
         username = form.cleaned_data.get("username")
+        email = form.cleaned_data.get("email")
         checkUsername =  User.objects.filter(username = username)
+        checkEmail = User.objects.filter(email = email)
         if checkUsername:
             messages.warning(request,"Username already exist !")
+            return render(request,"register.html",{"form" : form})
+        if checkEmail:
+            messages.warning(request,"Email is already exist !")
             return render(request,"register.html",{"form" : form})
         else:
             email = form.cleaned_data.get("email")
